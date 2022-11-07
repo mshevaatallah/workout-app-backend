@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const workoutRoutes = require("./routes/workout");
+const userRoutes = require("./routes/user");
 app.use(express.json());
 //middleware
 app.use((req, res, next) => {
@@ -11,6 +12,7 @@ app.use((req, res, next) => {
 });
 //routes
 app.use("/api/workouts", workoutRoutes);
+app.use("/api/user", userRoutes);
 
 //mongodb
 mongoose
