@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -15,6 +16,15 @@ const userSchema = new Schema({
 });
 
 userSchema.statics.signup = async function (email, password) {
+  if (!email || !password) {
+    throw Error("email dan password wajib di isi");
+  }
+  if (!validator.isEmail(email)) {
+    throw Error("email tidak valid");
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error("password kurang aman");
+  }
   const exists = await this.findOne({ email });
   if (exists) {
     throw Error("Email sudah digunakan");
