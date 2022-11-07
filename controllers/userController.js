@@ -1,9 +1,11 @@
-const loginUser = (req, res) => {
-  res.json({ msg: "login" });
+const User = require("../models/userModels");
+
+const loginUser = async (req, res) => {
+  res.json({ mssg: "login" });
 };
 
-const registerUser = (req, res) => {
-  res.json({ msg: "register" });
+const registerUser = async (req, res) => {
+  res.json({ mssg: "register" });
 };
 
 module.exports = { loginUser, registerUser };
