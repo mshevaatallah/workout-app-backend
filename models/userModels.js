@@ -34,4 +34,19 @@ userSchema.statics.signup = async function (email, password) {
   const user = await this.create({ email, password: hash });
   return user;
 };
+
+userSchema.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw Error("email dan password wajib di isi");
+  }
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Email salah !");
+  }
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    throw Error("Password salah !");
+  }
+  return user;
+};
 module.exports = mongoose.model("User", userSchema);
